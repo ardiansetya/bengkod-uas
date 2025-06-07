@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('no_ktp', 255)->nullable(); // hanya pasien
             $table->string('no_hp', 50)->nullable();
             $table->string('no_rm', 25)->nullable(); // hanya pasien
-            $table->unsignedBigInteger('id_poli')->nullable(); // hanya dokter
+            $table->foreignId('id_poli')->constrained('poli')->onDelete('cascade')->nullable(); // hanya dokter
             $table->enum('role', ['pasien', 'dokter']);
             $table->rememberToken();
             $table->timestamps();
