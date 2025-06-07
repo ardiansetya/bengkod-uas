@@ -36,6 +36,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Cek apakah pasien sudah terdaftar (berdasarkan no_ktp)
+        $existingPasien = User::where('no_ktp', $request->no_ktp)->first();
+
+        if ($existingPasien) {
+            return back()->with('error', 'Pasien dengan No KTP ini sudah terdaftar.');
+        }
+        
         $now = Carbon::now();
         $bulanIni = $now->format('Ym'); // 202506
         $jumlahPasienBulanIni = User::where('created_at', 'like', $now->format('Y-m') . '%')
