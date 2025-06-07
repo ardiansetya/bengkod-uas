@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,12 +36,23 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $now = Carbon::now();
+        $bulanIni = $now->format('Ym'); // 202506
+        $jumlahPasienBulanIni = User::where('created_at', 'like', $now->format('Y-m') . '%')
+            ->where('role', 'pasien')
+            ->count();
+
+        $no_rm = $bulanIni . '-' . ($jumlahPasienBulanIni + 1);
+
+
+
         $user = User::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->no_hp,
+            'no_rm' => $request->$no_rm,
             'password' => Hash::make($request->password),
         ]);
 
