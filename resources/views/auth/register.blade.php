@@ -2,11 +2,11 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- nama -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="nama" :value="__('nama')" />
+            <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama')" required autofocus autocomplete="nama" />
+            <x-input-error :messages="$errors->get('nama')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -14,6 +14,27 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        {{-- alamat --}}
+        <div class="mt-4">
+            <x-input-label for="alamat" :value="__('Alamat')" />
+            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" />
+            <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
+        </div>
+
+        {{-- <!-- Phone Number --> --}}
+        <div class="mt-4"> 
+            <x-input-label for="no_hp" :value="__('No HP')" />
+            <x-text-input id="no_hp" class="block mt-1 w-full" type="text" name="no_hp" :value="old('no_hp')" required autofocus autocomplete="no_hp" />
+            <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
+        </div>
+
+        {{-- <!-- no ktp --> --}}
+        <div class="mt-4">
+            <x-input-label for="no_ktp" :value="__('No KTP')" />
+            <x-text-input id="no_ktp" class="block mt-1 w-full" type="number" name="no_ktp" :value="old('no_hp')" required autofocus autocomplete="no_hp" />
+            <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
         </div>
 
         <!-- Password -->
