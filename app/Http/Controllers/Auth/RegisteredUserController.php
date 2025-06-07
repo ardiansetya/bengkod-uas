@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
         if ($existingPasien) {
             return back()->with('error', 'Pasien dengan No KTP ini sudah terdaftar.');
         }
-        
+
         $now = Carbon::now();
         $bulanIni = $now->format('Ym'); // 202506
         $jumlahPasienBulanIni = User::where('created_at', 'like', $now->format('Y-m') . '%')
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->no_hp,
-            'no_rm' => $request->$no_rm,
+            'no_rm' => $$no_rm,
             'password' => Hash::make($request->password),
         ]);
 
