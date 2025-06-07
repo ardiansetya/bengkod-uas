@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->no_hp,
-            'no_rm' => $$no_rm,
+            'no_rm' => $no_rm,
             'password' => Hash::make($request->password),
         ]);
 
