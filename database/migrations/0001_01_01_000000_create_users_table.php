@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('no_hp', 50)->nullable();
             $table->string('no_rm', 25)->nullable(); // hanya pasien
             $table->foreignId('id_poli')->constrained('poli')->onDelete('cascade')->nullable(); // hanya dokter
-            $table->enum('role', ['pasien', 'dokter']);
+            $table->enum('role', ['pasien', 'dokter', 'admin'])->default('pasien');
             $table->rememberToken();
             $table->timestamps();
         });
