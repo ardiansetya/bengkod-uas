@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\dokter;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\JadwalPeriksa;
 use Illuminate\Http\Request;
+use App\Models\JadwalPeriksa;
 use Illuminate\Support\Facades\Auth;
 
 class JadwalPeriksaController extends Controller
@@ -14,7 +13,7 @@ class JadwalPeriksaController extends Controller
      */
     public function index()
     {
-        $jadwalPeriksa = JadwalPeriksa::all()->where('id_dokter', Auth::user()->id);;
+        $jadwalPeriksa = JadwalPeriksa::all()->where('id_dokter', Auth::user()->id);
         return view('dokter.jadwal-periksa.index', compact('jadwalPeriksa'));
     }
 
@@ -23,7 +22,7 @@ class JadwalPeriksaController extends Controller
      */
     public function create()
     {
-        //
+        return view('dokter.jadwal-periksa.create');
     }
 
     /**
@@ -31,7 +30,33 @@ class JadwalPeriksaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'hari' => 'required|string|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+        ]);
+
+        //cek jadwal tabrakan atau tidak
+        if (JadwalPeriksa::where('id_dokter', Auth::user()->id)
+            ->where('hari', $validatedData['hari'])
+            ->where('jam_mulai', $validatedData['jam_mulai'])
+            ->where('jam_selesai', $validatedData['jam_selesai'])
+            ->exists()
+        ) {
+            // Jika ada jadwal yang tabrakan, kembalikan error
+            return redirect()->back()->with('error', 'Jadwal periksa tabrakan!');
+        }
+
+        // Jika tidak ada tabrakan, simpan jadwal baru
+        JadwalPeriksa::create([
+            'id_dokter' => Auth::user()->id,
+            'hari' => $validatedData['hari'],
+            'jam_mulai' => $validatedData['jam_mulai'],
+            'jam_selesai' => $validatedData['jam_selesai'],
+            'status' => 0
+        ]);
+
+        return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil ditambahkan!');
     }
 
     /**
@@ -55,7 +80,27 @@ class JadwalPeriksaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+
+        // menonaktifkan semua jadwal periksa
+        if (!$jadwalPeriksa->status) {
+            $jadwalPeriksa->where('id_dokter', Auth::user()->id)->update([
+                'status' => 0
+            ]);
+
+            // mengakftifkan jadwal yg dipilih
+            $jadwalPeriksa->status = true;
+            $jadwalPeriksa->save();
+
+
+            return redirect()->route('dokter.jadwal-periksa.index');
+        }
+
+        // dokter menonaktifkan jadwal yg dipilih
+        $jadwalPeriksa->status = false;
+        $jadwalPeriksa->save();
+
+        return redirect()->route('dokter.jadwal-periksa.index');
     }
 
     /**
