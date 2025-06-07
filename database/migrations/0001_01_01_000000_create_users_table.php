@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('alamat', 255)->nullable();
-            $table->string('no_ktp', 255)->nullable(); // hanya pasien
+            $table->string('no_ktp', 255)->unique()->nullable(); // hanya pasien
             $table->string('no_hp', 50)->nullable();
             $table->string('no_rm', 25)->nullable(); // hanya pasien
             $table->foreignId('id_poli')->constrained('poli')->onDelete('cascade')->nullable(); // hanya dokter
