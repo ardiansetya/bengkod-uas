@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\dokter;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPeriksa;
+use App\Models\Obat;
 use App\Models\Periksa;
 use Illuminate\Http\Request;
 
@@ -50,7 +52,9 @@ class PeriksaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $periksa = Periksa::findOrFail($id);
+        $obats = Obat::all();
+        return view('dokter.periksa.edit', compact('periksa', 'obats'));
     }
 
     /**
@@ -58,7 +62,42 @@ class PeriksaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'obat' => 'array|required',
+            'obat.*' => 'exists:obats,id',
+            'catatan' => 'nullable|string',
+
+        ]);
+
+        $periksa = Periksa::findOrFail($id);
+        $periksa->update([
+            'catatan' => $request->catatan,
+        ]);
+
+        // Hapus obat lama
+        DetailPeriksa::where('id_periksa', $periksa->id)->delete();
+
+        // Tambah obat baru
+        foreach ($request->obat as $id_obat) {
+            DetailPeriksa::create([
+                'id_periksa' => $periksa->id,
+                'id_obat' => $id_obat,
+            ]);
+        }
+
+        // 💰 Hitung total harga obat
+        $totalHargaObat = Obat::whereIn('id', $request->obat)->sum(column: 'harga');
+
+        // Tambahkan jika ada biaya jasa dokter (opsional)
+        $biayaJasa = 50000; // kamu bisa sesuaikan atau ambil dari config
+        $totalBiaya = $totalHargaObat + $biayaJasa;
+
+        // Update kolom biaya_periksa
+        $periksa->update([
+            'biaya_periksa' => $totalBiaya
+        ]);
+
+        return redirect()->route('dokter.periksa.index')->with('success', 'Data pemeriksaan berhasil diperbarui.');
     }
 
     /**
