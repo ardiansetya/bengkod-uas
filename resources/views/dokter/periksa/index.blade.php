@@ -38,7 +38,7 @@
                                 @forelse ($periksas as $periksa)
                                     <tr>
                                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-2">{{ $periksa->daftarPoli->->nama }}</td>
+                                        <td class="px-4 py-2">{{ $periksa->d }}</td>
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->keluhan }}</td>
                                         <td class="px-4 py-2">{{ $periksa->tgl_periksa->format('d M Y') }}</td>
                                         <td class="px-4 py-2">{{ $periksa->catatan ?? '-' }}</td>
