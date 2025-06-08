@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         // Admin
         User::create([
-            'nama' => 'Admin Sistem',
+            'name' => 'Admin Sistem',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'), // Ganti di production
             'role' => 'admin',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
 
         // Dokter
         User::create([
-            'nama' => 'Dr. Budi',
+            'name' => 'Dr. Budi',
             'email' => 'dokter@example.com',
             'password' => Hash::make('password'),
             'id_poli' => 1, // Pastikan poli dengan ID 1 sudah ada
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
 
         // Pasien
         User::create([
-            'nama' => 'Ani Pasien',
+            'name' => 'Ani Pasien',
             'email' => 'pasien@example.com',
             'password' => Hash::make('password'),
             'alamat' => 'Jl. Mawar No. 1',

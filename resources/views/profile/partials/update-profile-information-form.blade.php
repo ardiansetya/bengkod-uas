@@ -18,10 +18,29 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+
+        @auth
+        @if (Auth::user()->role === 'dokter')
+        <div>
+            <x-input-label for="poli" :value="__('Poli')" />
+            <select id="poli" name="poli" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required autofocus autocomplete="poli">
+                <option value="">-- Pilih Poli --</option>
+                @foreach ($polis as $poli)
+                    <option value="{{ $poli->id }}" {{ old('poli', $user->id_poli) == $poli->id ? 'selected' : '' }}>
+                        {{ $poli->nama_poli }}
+                    </option>
+                @endforeach
+            </select>
+        
+            <x-input-error class="mt-2" :messages="$errors->get('poli')" />
+        </div>
+        @endif
+            
+        @endauth
 
         <div>
             <x-input-label for="email" :value="__('Email')" />

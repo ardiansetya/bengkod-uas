@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                     {{__("Selamat Datang ")}} 
-                    {{ Auth::user()->nama }}
+                    {{ Auth::user()->name }}
                 </div>
             </div>
         </div>
