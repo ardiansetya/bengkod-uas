@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dokter;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periksa;
 use Illuminate\Http\Request;
 
 class PeriksaController extends Controller
@@ -12,7 +13,8 @@ class PeriksaController extends Controller
      */
     public function index()
     {
-        return view('dokter.periksa.index');
+        $periksas = Periksa::all();
+        return view('dokter.periksa.index', compact('periksas'));
     }
 
     /**
