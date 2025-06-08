@@ -20,7 +20,7 @@
                         <table class="min-w-full divide-y divide-gray-200 border rounded-lg">
                             <thead class="bg-gray-100 text-left text-sm font-medium text-gray-700">
                                 <tr>
-                                    <th class="px-4 py-2">No</th>
+                                    <th class="px-4 py-2">No Antrean</th>
                                     <th class="px-4 py-2">Nama Pasien</th>
                                     <th class="px-4 py-2">Keluhan
                                     </th>
@@ -32,7 +32,7 @@
                             <tbody class="divide-y divide-gray-200 text-sm">
                                 @forelse ($periksas as $periksa)
                                     <tr>
-                                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-2">{{ $periksa->daftarPoli->no_antrian }}</td>
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->pasien->name }}</td>
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->keluhan }}</td>
                                         <td class="px-4 py-2">{{ \Carbon\Carbon::parse($periksa->tgl_periksa)->translatedFormat('d F Y') }}</td>
@@ -40,7 +40,7 @@
                                         <td class="px-4 py-2">
                                             <a href="{{ route('dokter.periksa.edit', $periksa->id) }}"
                                                class="inline-block px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
-                                                Isi Catatan / Obat
+                                                Periksa
                                             </a>
                                         </td>
                                     </tr>

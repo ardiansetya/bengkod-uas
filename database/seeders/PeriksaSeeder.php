@@ -16,7 +16,7 @@ class PeriksaSeeder extends Seeder
         Periksa::create([
             'id_daftar_poli' => 1,
             'tanggal_periksa' => now(),
-            'catatan' => 'Pasien diberi obat batuk',
+            'catatan' => 'belum diperiksa',
             'biaya_periksa' => 50000
         ]);
     }
