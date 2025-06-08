@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\dokter\JadwalPeriksaController;
 use App\Http\Controllers\dokter\PeriksaController;
+use App\Http\Controllers\dokter\RiwayatPeriksaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RiwayatPeriksa;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +26,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/jadwal-periksa', controller: JadwalPeriksaController::class)->names(names: 'dokter.jadwal-periksa');
 
         Route::resource('/periksa', controller: PeriksaController::class)->names(names: 'dokter.periksa');
+        Route::resource('/riwayat', controller: RiwayatPeriksaController::class)->names(names: 'dokter.riwayat');
         // Route::resource('/periksa', PeriksaController::class)->names(names: 'dokter.periksa');
         // Route::resource('/riwayat', PeriksaController::class)->names(names: 'dokter.riwayat');
 

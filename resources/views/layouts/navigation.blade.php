@@ -23,6 +23,9 @@
                         <x-nav-link :href="route('dokter.periksa.index')" :active="request()->routeIs('dokter.periksa.index')">
                             {{ __('Periksa') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('dokter.riwayat.index')" :active="request()->routeIs('dokter.riwayat.index')">
+                            {{ __('Riwayat') }}
+                        </x-nav-link>
                         @else
                             
                         @endif
