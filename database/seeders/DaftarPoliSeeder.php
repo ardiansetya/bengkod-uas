@@ -14,7 +14,7 @@ class DaftarPoliSeeder extends Seeder
     public function run(): void
     {
         DaftarPoli::create([
-            'id_pasien' => 2,
+            'id_pasien' => 3,
             'id_jadwal' => 1,
             'keluhan' => 'Demam dan batuk',
             'no_antrian' => 1
