@@ -43,7 +43,7 @@
                                         <td class="px-4 py-2">{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}</td>
                                         <td class="px-4 py-2">{{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
                                         <td class="px-4 py-2">
-                                            @if ($jadwal->status)
+                                            @if ($jadwal->is_aktif)
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                     Aktif
                                                 </span>
@@ -57,7 +57,7 @@
                                             <form action="{{ route('dokter.jadwal-periksa.update', $jadwal->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                @if ($jadwal->status)
+                                                @if ($jadwal->is_aktif)
                                                     <button type="submit"
                                                         class="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700">
                                                         Nonaktifkan

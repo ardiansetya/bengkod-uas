@@ -35,18 +35,25 @@ class JadwalPeriksaController extends Controller
             'hari' => 'required|string|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+            'is_aktif' => 'boolean',
         ]);
 
-        //cek jadwal tabrakan atau tidak
+        // cek tabkrakan jadwal
         if (JadwalPeriksa::where('id_dokter', Auth::user()->id)
             ->where('hari', $validatedData['hari'])
-            ->where('jam_mulai', $validatedData['jam_mulai'])
-            ->where('jam_selesai', $validatedData['jam_selesai'])
+            ->where(function ($query) use ($validatedData) {
+                $query->whereBetween('jam_mulai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhereBetween('jam_selesai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhere(function ($q) use ($validatedData) {
+                        $q->where('jam_mulai', '<=', $validatedData['jam_mulai'])
+                            ->where('jam_selesai', '>=', $validatedData['jam_selesai']);
+                    });
+            })
             ->exists()
         ) {
-            // Jika ada jadwal yang tabrakan, kembalikan error
             return redirect()->back()->with('error', 'Jadwal periksa tabrakan!');
         }
+
 
         // Jika tidak ada tabrakan, simpan jadwal baru
         JadwalPeriksa::create([
@@ -54,7 +61,7 @@ class JadwalPeriksaController extends Controller
             'hari' => $validatedData['hari'],
             'jam_mulai' => $validatedData['jam_mulai'],
             'jam_selesai' => $validatedData['jam_selesai'],
-            'status' => 0
+            'is_aktif' => $validatedData['is_aktif'] ?? false,
         ]);
 
         return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil ditambahkan!');
@@ -84,13 +91,13 @@ class JadwalPeriksaController extends Controller
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
 
         // menonaktifkan semua jadwal periksa
-        if (!$jadwalPeriksa->status) {
+        if (!$jadwalPeriksa->is_aktif) {
             $jadwalPeriksa->where('id_dokter', Auth::user()->id)->update([
-                'status' => 0
+                'is_aktif' => 0
             ]);
 
             // mengakftifkan jadwal yg dipilih
-            $jadwalPeriksa->status = true;
+            $jadwalPeriksa->is_aktif = true;
             $jadwalPeriksa->save();
 
 
@@ -98,7 +105,7 @@ class JadwalPeriksaController extends Controller
         }
 
         // dokter menonaktifkan jadwal yg dipilih
-        $jadwalPeriksa->status = false;
+        $jadwalPeriksa->is_aktif = false;
         $jadwalPeriksa->save();
 
         return redirect()->route('dokter.jadwal-periksa.index');
