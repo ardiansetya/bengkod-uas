@@ -38,7 +38,7 @@
 
                             <div>
                                 <label for="hariSelect" class="block text-sm font-medium text-gray-700">Hari</label>
-                                <select name="hari" id="hariSelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <select name="hari" id="hariSelect" value="{{ old('hari') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">Pilih Hari</option>
                                     <option>Senin</option>
                                     <option>Selasa</option>
@@ -52,12 +52,12 @@
 
                             <div>
                                 <label for="jamMulai" class="block text-sm font-medium text-gray-700">Jam Mulai</label>
-                                <input type="time" name="jam_mulai" id="jamMulai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <input type="time" name="jam_mulai" id="jamMulai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value="{{ old('jam_mulai') }}">
                             </div>
 
                             <div>
                                 <label for="jamSelesai" class="block text-sm font-medium text-gray-700">Jam Selesai</label>
-                                <input type="time" name="jam_selesai" id="jamSelesai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <input type="time" name="jam_selesai" id="jamSelesai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value="{{ old('jam_selesai') }}">
                             </div>
 
                             <div class="flex items-center justify-start space-x-3">

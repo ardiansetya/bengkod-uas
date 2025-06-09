@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dokter;
 
 use App\Http\Controllers\Controller;
 use App\Models\JadwalPeriksa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,7 @@ class JadwalPeriksaController extends Controller
      */
     public function create()
     {
+        
         return view('dokter.jadwal-periksa.create');
     }
 
@@ -89,6 +91,12 @@ class JadwalPeriksaController extends Controller
     public function update(Request $request, string $id)
     {
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+
+        // cek apakah hari ini adalah hari jadwal periksa
+        $today = Carbon::now()->locale('id')->dayName; 
+        if ($today == $jadwalPeriksa->hari) {
+            return back()->withErrors(['hari' => 'Tidak dapat mengubah jadwal pada hari H.']);
+        }
 
         // menonaktifkan semua jadwal periksa
         if (!$jadwalPeriksa->is_aktif) {
