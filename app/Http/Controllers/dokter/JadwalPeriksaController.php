@@ -7,6 +7,7 @@ use App\Models\JadwalPeriksa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class JadwalPeriksaController extends Controller
 {
@@ -82,7 +83,15 @@ class JadwalPeriksaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+
+        // cek apakah hari ini adalah hari jadwal periksa
+        $today = Carbon::now()->locale('id')->translatedFormat('l'); // hasil: 'Senin', 'Selasa', dll
+        if (Str::lower($today) == $jadwalPeriksa->hari) {
+            return back()->withErrors(['hari' => 'Tidak dapat mengubah jadwal pada hari H.']);
+        }
+
+        return view('dokter.jadwal-periksa.edit', compact('jadwalPeriksa'));
     }
 
     /**
@@ -91,12 +100,6 @@ class JadwalPeriksaController extends Controller
     public function update(Request $request, string $id)
     {
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
-
-        // cek apakah hari ini adalah hari jadwal periksa
-        $today = Carbon::now()->locale('id')->dayName; 
-        if ($today == $jadwalPeriksa->hari) {
-            return back()->withErrors(['hari' => 'Tidak dapat mengubah jadwal pada hari H.']);
-        }
 
         // menonaktifkan semua jadwal periksa
         if (!$jadwalPeriksa->is_aktif) {

@@ -15,9 +15,11 @@
                             {{ __('Daftar Jadwal Periksa') }}
                         </h2>
 
+                       
+
                         <div>
                             <a href="{{ route('dokter.jadwal-periksa.create') }}"
-                               class="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                class="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                 Tambah Jadwal Periksa
                             </a>
                         </div>
@@ -40,40 +42,62 @@
                                     <tr>
                                         <td class="px-4 py-2">{{ $jadwal->id }}</td>
                                         <td class="px-4 py-2">{{ $jadwal->hari }}</td>
-                                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}</td>
-                                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
                                         <td class="px-4 py-2">
                                             @if ($jadwal->is_aktif)
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                     Aktif
                                                 </span>
                                             @else
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                                     Nonaktif
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-2">
-                                            <form action="{{ route('dokter.jadwal-periksa.update', $jadwal->id) }}" method="POST">
+                                        <td class="px-4 py-2 flex gap-5">
+                                            <form class=""
+                                                action="{{ route('dokter.jadwal-periksa.update', $jadwal->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 @if ($jadwal->is_aktif)
                                                     <button type="submit"
-                                                        class="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700">
+                                                        class="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700 w-28">
                                                         Nonaktifkan
                                                     </button>
                                                 @else
                                                     <button type="submit"
-                                                        class="px-3 py-1 text-sm text-white bg-green-600 rounded hover:bg-green-700">
+                                                        class="px-3 py-1 text-sm text-white bg-green-600 rounded hover:bg-green-700 w-28">
                                                         Aktifkan
                                                     </button>
                                                 @endif
+                                               
                                             </form>
+                                            <form action="{{ route('dokter.jadwal-periksa.edit', $jadwal) }}"
+                                                method="GET">
+                                                <button type="submit"
+                                                    class="px-3 py-1 text-sm text-white bg-amber-500 rounded hover:bg-amber-700">
+                                                    Edit Jadwal
+                                                </button>
+                                            </form>
+                                            
+
                                         </td>
                                     </tr>
                                 @endforeach
+                                @if ($errors->has('hari'))
+                                <div class="p-4 mb-4 text-sm text-red-800 bg-red-100 border border-red-200 rounded">
+                                    {{ $errors->first('hari') }}
+                                </div>
+                            @endif
                             </tbody>
                         </table>
+                        
                     </div>
                 </section>
             </div>
