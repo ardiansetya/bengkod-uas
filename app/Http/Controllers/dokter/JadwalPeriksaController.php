@@ -99,32 +99,45 @@ class JadwalPeriksaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validatedData = $request->validate([
+            'hari' => 'required|string|in:senin,selasa,rabu,kamis,jumat,sabtu,minggu',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+            'is_aktif' => 'boolean',
+        ]);
+
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa->update($validatedData);
 
-        // menonaktifkan semua jadwal periksa
-        if (!$jadwalPeriksa->is_aktif) {
-            $jadwalPeriksa->where('id_dokter', Auth::user()->id)->update([
-                'is_aktif' => 0
-            ]);
-
-            // mengakftifkan jadwal yg dipilih
-            $jadwalPeriksa->is_aktif = true;
-            $jadwalPeriksa->save();
-
-
-            return redirect()->route('dokter.jadwal-periksa.index');
-        }
-
-        // dokter menonaktifkan jadwal yg dipilih
-        $jadwalPeriksa->is_aktif = false;
-        $jadwalPeriksa->save();
-
-        return redirect()->route('dokter.jadwal-periksa.index');
+        return redirect()->route('dokter.jadwal-periksa.index')->with('success', 'Jadwal periksa berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
+
+    public function toggleStatus(string $id)
+    {
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+
+        // Jika jadwal aktif, matikan semua jadwal periksa
+        if (!$jadwalPeriksa->is_aktif) {
+            JadwalPeriksa::where('id_dokter', Auth::user()->id)->update(['is_aktif' => false]);
+
+            // Aktifkan jadwal yang dipilih
+            $jadwalPeriksa->is_aktif = true;
+            $jadwalPeriksa->save();
+        } else {
+            // Matikan jadwal yang dipilih
+            $jadwalPeriksa->is_aktif = false;
+            $jadwalPeriksa->save();
+        }
+
+        return redirect()->route('dokter.jadwal-periksa.index');
+    }
+
+
     public function destroy(string $id)
     {
         //

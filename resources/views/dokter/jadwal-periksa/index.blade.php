@@ -61,7 +61,7 @@
                                         </td>
                                         <td class="px-4 py-2 flex gap-5">
                                             <form class=""
-                                                action="{{ route('dokter.jadwal-periksa.update', $jadwal->id) }}"
+                                                action="{{ route('dokter.jadwal-periksa.toggleStatus', $jadwal->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('PATCH')

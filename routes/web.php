@@ -23,13 +23,13 @@ Route::middleware('auth')->group(function () {
 
     // dokter
     Route::middleware(['role:dokter'])->prefix('dokter')->group(function () {
-        Route::resource('/jadwal-periksa', controller: JadwalPeriksaController::class)->names(names: 'dokter.jadwal-periksa');
+        Route::resource('/jadwal-periksa', JadwalPeriksaController::class)->names('dokter.jadwal-periksa');
 
-        Route::resource('/periksa', controller: PeriksaController::class)->names(names: 'dokter.periksa');
-        Route::resource('/riwayat', controller: RiwayatPeriksaController::class)->names(names: 'dokter.riwayat');
-        // Route::resource('/periksa', PeriksaController::class)->names(names: 'dokter.periksa');
-        // Route::resource('/riwayat', PeriksaController::class)->names(names: 'dokter.riwayat');
+        Route::patch('/jadwal-periksa/{id}/toggle', [JadwalPeriksaController::class, 'toggleStatus'])
+            ->name('dokter.jadwal-periksa.toggleStatus');
 
+        Route::resource('/periksa', PeriksaController::class)->names('dokter.periksa');
+        Route::resource('/riwayat', RiwayatPeriksaController::class)->names('dokter.riwayat');
     });
 
     // pasien
