@@ -19,6 +19,7 @@ return new class extends Migration
             ]);
             $table->time('jam_mulai');
             $table->time('jam_selesai');
+            $table->boolean('is_aktif')->default(false);
             $table->timestamps();
         });
     }
