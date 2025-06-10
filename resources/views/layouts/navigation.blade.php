@@ -12,11 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                   
                     @auth
                         @if (Auth::user()->role == 'dokter')
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.index')">
                             {{ __('Jadwal Periksa') }}
                         </x-nav-link>
@@ -26,8 +27,28 @@
                         <x-nav-link :href="route('dokter.riwayat.index')" :active="request()->routeIs('dokter.riwayat.index')">
                             {{ __('Riwayat') }}
                         </x-nav-link>
-                        @else
-                            
+
+                        @elseif (Auth::user()->role == 'admin')
+                        <x-nav-link :href="route('admin.dashboard.index')" :active="request()->routeIs('admin.dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.dokter.index')" :active="request()->routeIs('admin.dokter.index')">
+                            {{ __('Dokter') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.pasien.index')" :active="request()->routeIs('admin.pasien.index')">
+                            {{ __('Pasien') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.obat.index')" :active="request()->routeIs('admin.obat.index')">
+                            {{ __('Obat') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.poli.index')" :active="request()->routeIs('admin.poli.index')">
+                            {{ __('Poli') }}
+                        </x-nav-link>
+
+                        @elseif (Auth::user()->role == 'pasien')
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
                         @endif
                     @endauth
                 </div>
