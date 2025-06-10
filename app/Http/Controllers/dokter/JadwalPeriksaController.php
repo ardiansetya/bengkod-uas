@@ -42,7 +42,7 @@ class JadwalPeriksaController extends Controller
         ]);
 
         // cek tabkrakan jadwal
-        if (JadwalPeriksa::where('id_dokter', Auth::user()->id)
+       if (JadwalPeriksa::where('id_dokter', Auth::user()->id)
             ->where('hari', $validatedData['hari'])
             ->where(function ($query) use ($validatedData) {
                 $query->whereBetween('jam_mulai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
@@ -53,7 +53,7 @@ class JadwalPeriksaController extends Controller
                     });
             })
             ->exists()
-        ) {
+        ) { 
             return redirect()->back()->with('error', 'Jadwal periksa tabrakan!');
         }
 
@@ -99,12 +99,29 @@ class JadwalPeriksaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+
         $validatedData = $request->validate([
-            'hari' => 'required|string|in:senin,selasa,rabu,kamis,jumat,sabtu,minggu',
+            'hari' => 'required|string|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
-            'is_aktif' => 'boolean',
         ]);
+
+        // cek tabkrakan jadwal
+        if (JadwalPeriksa::where('id_dokter', Auth::user()->id)
+            ->where('hari', $validatedData['hari'])
+            ->where(function ($query) use ($validatedData) {
+                $query->whereBetween('jam_mulai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhereBetween('jam_selesai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhere(function ($q) use ($validatedData) {
+                        $q->where('jam_mulai', '<=', $validatedData['jam_mulai'])
+                            ->where('jam_selesai', '>=', $validatedData['jam_selesai']);
+                    });
+            })
+            ->exists()
+        ) {
+            return redirect()->back()->with('error', 'Jadwal periksa tabrakan!');
+        }
 
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
         $jadwalPeriksa->update($validatedData);

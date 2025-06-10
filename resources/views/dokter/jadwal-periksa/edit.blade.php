@@ -39,16 +39,17 @@
                             @method('PATCH')
                             <div>
                                 <label for="hariSelect" class="block text-sm font-medium text-gray-700">Hari</label>
-                                <select name="hari" id="hariSelect" value="{{ old('hari', $jadwalPeriksa->hari) }}"
+                                <select name="hari" id="hariSelect"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">Pilih Hari</option>
                                     @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
-                                        <option value="{{ $hari }}" {{ old('hari', $jadwalPeriksa->hari) }}>
-                                            {{ $hari }}
+                                        <option value="{{ $hari }}" {{ old('hari', $jadwalPeriksa->hari) == $hari ? 'selected' : '' }}>
+                                            {{ Str::title($hari) }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+                            
 
                             <div>
                                 <label for="jamMulai" class="block text-sm font-medium text-gray-700">Jam Mulai</label>

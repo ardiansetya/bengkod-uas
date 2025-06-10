@@ -41,7 +41,7 @@
                                 @foreach ($jadwalPeriksa as $jadwal)
                                     <tr>
                                         <td class="px-4 py-2">{{ $jadwal->id }}</td>
-                                        <td class="px-4 py-2">{{ $jadwal->hari }}</td>
+                                        <td class="px-4 py-2">{{ Str::ucfirst($jadwal->hari) }}</td>
                                         <td class="px-4 py-2">
                                             {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}</td>
                                         <td class="px-4 py-2">
