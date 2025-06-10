@@ -18,7 +18,7 @@ class AdminDashboardController extends Controller
         $jumlahPasien = User::where('role', 'pasien')->count();
         $jumlahPoli = Poli::count();
 
-        return view('dashboard', compact('jumlahDokter', 'jumlahPasien', 'jumlahPoli'));
+        return view('admin.dashboard', compact('jumlahDokter', 'jumlahPasien', 'jumlahPoli'));
     }
 
     /**
