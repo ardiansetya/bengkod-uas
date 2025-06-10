@@ -18,22 +18,22 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         <!-- Kartu Jumlah Dokter -->
-                        <div class="bg-blue-100 p-4 rounded-lg shadow">
+                        <a href="{{ route('admin.dokter.index') }}" class="bg-blue-100 p-4 rounded-lg shadow">
                             <h3 class="text-sm text-blue-700 font-semibold">Jumlah Dokter</h3>
                             <p class="text-3xl font-bold text-blue-900 mt-2">{{ $jumlahDokter }}</p>
-                        </div>
+                        </a>
 
                         <!-- Kartu Jumlah Poli -->
-                        <div class="bg-green-100 p-4 rounded-lg shadow">
+                        <a href="{{ route('admin.poli.index') }}" class="bg-green-100 p-4 rounded-lg shadow">
                             <h3 class="text-sm text-green-700 font-semibold">Jumlah Poli</h3>
                             <p class="text-3xl font-bold text-green-900 mt-2">{{ $jumlahPoli }}</p>
-                        </div>
+                        </a>
 
                         <!-- Kartu Jumlah Pasien -->
-                        <div class="bg-amber-100 p-4 rounded-lg shadow">
+                        <a href="{{ route('admin.pasien.index') }}" class="bg-amber-100 p-4 rounded-lg shadow">
                             <h3 class="text-sm text-amber-700 font-semibold">Jumlah Pasien</h3>
                             <p class="text-3xl font-bold text-amber-900 mt-2">{{ $jumlahPasien }}</p>
-                        </div>
+                        </a>
                     </div>
                 </section>
             </div>

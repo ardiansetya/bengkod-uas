@@ -38,12 +38,13 @@
                         <x-nav-link :href="route('admin.pasien.index')" :active="request()->routeIs('admin.pasien.index')">
                             {{ __('Pasien') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('admin.obat.index')" :active="request()->routeIs('admin.obat.index')">
-                            {{ __('Obat') }}
-                        </x-nav-link>
                         <x-nav-link :href="route('admin.poli.index')" :active="request()->routeIs('admin.poli.index')">
                             {{ __('Poli') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.obat.index')" :active="request()->routeIs('admin.obat.index')">
+                            {{ __('Obat') }}
+                        </x-nav-link>
+                       
 
                         @elseif (Auth::user()->role == 'pasien')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
