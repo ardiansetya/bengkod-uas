@@ -27,6 +27,7 @@
                                     <th class="px-4 py-2">Tanggal Periksa</th>
                                     <th class="px-4 py-2">Catatan</th>
                                     <th class="px-4 py-2">Biaya</th>
+                                    <th class="px-4 py-2">Status</th>
                                     <th class="px-4 py-2">Aksi</th>
                                 </tr>
                             </thead>
@@ -36,25 +37,47 @@
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->no_antrian }}</td>
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->pasien->name }}</td>
                                         <td class="px-4 py-2">{{ $periksa->daftarPoli->keluhan }}</td>
-                                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($periksa->tgl_periksa)->translatedFormat('d F Y') }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ \Carbon\Carbon::parse($periksa->tgl_periksa)->translatedFormat('d F Y') }}
+                                        </td>
                                         <td class="px-4 py-2">
                                             @if ($periksa->catatan == '-')
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Pasien Belum Diperiksa</span>
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Pasien
+                                                    Belum Diperiksa</span>
                                             @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">{{ $periksa->catatan ?? '-' }}</span>
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">{{ $periksa->catatan ?? '-' }}</span>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-2">{{ 'RP ' . number_format($periksa->biaya_periksa, 0, ',', '.') ?? '-' }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ 'RP ' . number_format($periksa->biaya_periksa, 0, ',', '.') ?? '-' }}
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            @if (!$periksa->status)
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Belum
+                                                    Diperiksa</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Selesai</span>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-2">
                                             <a href="{{ route('dokter.periksa.edit', $periksa->id) }}"
-                                               class="inline-block px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
+                                                class="inline-block px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
                                                 Periksa
+                                            </a>
+                                            <a href="{{ route('dokter.periksa.show', $periksa->id) }}"
+                                                class="inline-block px-3 py-1 text-sm text-white bg-amber-600 rounded hover:bg-amber-700">
+                                                Detail
                                             </a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Tidak ada pasien yang diperiksa.</td>
+                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Tidak ada pasien
+                                            yang diperiksa.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

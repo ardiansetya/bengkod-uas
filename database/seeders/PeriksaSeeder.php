@@ -17,7 +17,8 @@ class PeriksaSeeder extends Seeder
             'id_daftar_poli' => 1,
             'tanggal_periksa' => now(),
             'catatan' => '-',
-            'biaya_periksa' => 50000
+            'biaya_periksa' => 0,
+            'status' => false,
         ]);
     }
 }

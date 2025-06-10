@@ -44,7 +44,9 @@ class PeriksaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $periksa = Periksa::findOrFail($id);
+        $detailPeriksas = DetailPeriksa::where('id_periksa', $periksa->id)->with('obat')->get();
+        return view('dokter.periksa.show', compact('detailPeriksas', 'periksa'));
     }
 
     /**
@@ -66,6 +68,7 @@ class PeriksaController extends Controller
             'obat' => 'array|required',
             'obat.*' => 'exists:obats,id',
             'catatan' => 'nullable|string',
+            
         ]);
 
         $periksa = Periksa::findOrFail($id);
@@ -93,7 +96,8 @@ class PeriksaController extends Controller
 
         // Update kolom biaya_periksa
         $periksa->update([
-            'biaya_periksa' => $totalBiaya
+            'biaya_periksa' => $totalBiaya,
+            'status' => true, 
         ]);
 
         return redirect()->route('dokter.periksa.index')->with('success', 'Data pemeriksaan berhasil diperbarui.');

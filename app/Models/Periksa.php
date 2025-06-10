@@ -14,6 +14,7 @@ class Periksa extends Model
         'tanggal_periksa',
         'catatan',
         'biaya_periksa',
+        'status',
     ];
 
 
