@@ -66,7 +66,6 @@ class PeriksaController extends Controller
             'obat' => 'array|required',
             'obat.*' => 'exists:obats,id',
             'catatan' => 'nullable|string',
-
         ]);
 
         $periksa = Periksa::findOrFail($id);
@@ -89,7 +88,7 @@ class PeriksaController extends Controller
         $totalHargaObat = Obat::whereIn('id', $request->obat)->sum(column: 'harga');
 
         // Tambahkan jika ada biaya jasa dokter (opsional)
-        $biayaJasa = 50000; // kamu bisa sesuaikan atau ambil dari config
+        $biayaJasa = 150000; // kamu bisa sesuaikan atau ambil dari config
         $totalBiaya = $totalHargaObat + $biayaJasa;
 
         // Update kolom biaya_periksa

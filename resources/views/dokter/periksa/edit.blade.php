@@ -31,7 +31,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('dokter.periksa.update', $periksa->id) }}" method="POST" class="space-y-5">
+                        <form action="{{ route('dokter.periksa.update', $periksa) }}" method="POST" class="space-y-5">
                             @csrf
                             @method('PUT')
 
@@ -61,6 +61,7 @@
                                         <option value="{{ $obat->id }}"
                                             @if ($periksa->detailPeriksa->pluck('id_obat')->contains($obat->id)) selected @endif>
                                             {{ $obat->nama_obat }}
+                                            {{ $obat->harga ? ' - RP ' . number_format($obat->harga, 0, ',', '.') : '' }}
                                         </option>
                                     @endforeach
                                 </select>
