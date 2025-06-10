@@ -12,10 +12,10 @@
                     <section>
                         <header class="mb-6">
                             <h2 class="text-lg font-medium text-gray-900">
-                                {{ __('Form Pemeriksaan Pasien') }}
+                                {{ __('Detail Pemeriksaan Pasien') }}
                             </h2>
                             <p class="mt-1 text-sm text-gray-600">
-                                {{ __('Silakan isi catatan pemeriksaan berdasarkan keluhan pasien.') }}
+                                {{ __('Detail isi catatan pemeriksaan berdasarkan keluhan pasien.') }}
                             </p>
                         </header>
 

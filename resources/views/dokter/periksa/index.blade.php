@@ -47,7 +47,7 @@
                                                     Belum Diperiksa</span>
                                             @else
                                                 <span
-                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">{{ $periksa->catatan ?? '-' }}</span>
+                                                    class="inline-flex items-center px-2.5 py-0.5">{{ $periksa->catatan ?? '-' }}</span>
                                             @endif
                                         </td>
                                         <td class="px-4 py-2">

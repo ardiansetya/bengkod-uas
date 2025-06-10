@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\dokter;
+namespace App\Http\Controllers\pasien;
 
 use App\Http\Controllers\Controller;
-use App\Models\Periksa;
+use App\Models\Poli;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RiwayatPeriksaController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $periksas = Periksa::all();
-        return view('dokter.riwayat.index', compact('periksas'));
+        $jumlahDokter = User::where('role', 'dokter')->count();
+        $jumlahPasien = User::where('role', 'pasien')->count();
+        $jumlahPoli = Poli::count();
+
+        return view('dashboard', compact('jumlahDokter', 'jumlahPasien', 'jumlahPoli'));
     }
 
     /**
