@@ -15,7 +15,59 @@
                             Admin Dokter
                         </h2>
                     </header>
-
+                    <div class="overflow-x-auto mt-6">
+                        <table class="min-w-full divide-y divide-gray-200 border rounded-lg">
+                            <thead class="bg-gray-100 text-left text-sm font-medium text-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2">ID User </th>
+                                    <th class="px-4 py-2">Nama Dokter</th>
+                                    <th class="px-4 py-2">Email
+                                    </th>
+                                    <th class="px-4 py-2">Alamat</th>
+                                    <th class="px-4 py-2">No KTP</th>
+                                    <th class="px-4 py-2">No HP</th>
+                                    <th class="px-4 py-2">Poli</th>
+                                    <th class="px-4 py-2">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 text-sm">
+                                @forelse ($dokters as $dokter)
+                                    <tr>
+                                        <td class="px-4 py-2">{{ $dokter->id }}</td>
+                                        <td class="px-4 py-2">{{ $dokter->name }}</td>
+                                        <td class="px-4 py-2">{{ $dokter->email }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ $dokter->alamat  }}
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            {{ $dokter->no_ktp ?? '-' }}
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            {{ $dokter->no_hp ?? '-' }}
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            {{ $dokter->id_poli->nama_poli ?? '-' }}
+                                        </td>
+                                        <td class="px-4 py-2">
+                                            {{-- <a href="{{ route('admin.dokter.edit', $periksa->id) }}"
+                                                class="inline-block px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
+                                                Periksa
+                                            </a>
+                                            <a href="{{ route('admin.dokter.show', $periksa->id) }}"
+                                                class="inline-block px-3 py-1 text-sm text-white bg-amber-600 rounded hover:bg-amber-700">
+                                                Detail
+                                            </a> --}}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Tidak ada pasien
+                                            yang diperiksa.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </div>
