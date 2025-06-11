@@ -46,17 +46,17 @@
                                             {{ $dokter->no_hp ?? '-' }}
                                         </td>
                                         <td class="px-4 py-2">
-                                            {{ $dokter->poli ?? '-' }}
+                                            {{ $dokter->poli->nama_poli ?? '-' }}
                                         </td>
                                         <td class="px-4 py-2">
-                                            {{-- <a href="{{ route('admin.dokter.edit', $periksa->id) }}"
+                                            <a href="{{ route('admin.dokter.edit', $dokter->id) }}"
                                                 class="inline-block px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
-                                                Periksa
+                                                Edit
                                             </a>
-                                            <a href="{{ route('admin.dokter.show', $periksa->id) }}"
-                                                class="inline-block px-3 py-1 text-sm text-white bg-amber-600 rounded hover:bg-amber-700">
-                                                Detail
-                                            </a> --}}
+                                            <a href="{{ route('admin.dokter.destroy', $dokter->id) }}"
+                                                class="inline-block px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700">
+                                                Delete
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty
