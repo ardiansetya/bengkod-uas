@@ -12,26 +12,28 @@
                 <div class="p-8">
                     <!-- Form Header -->
                     <div class="text-center mb-8">
-                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                             <i class="fas fa-user-plus text-white text-2xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Tambah Dokter Baru</h3>
                         <p class="text-gray-600">Lengkapi informasi dokter untuk menambahkan ke sistem</p>
                     </div>
-    
+
                     <!-- Form -->
-                    <form action="{{ route('admin.dokter.store') }}" method="POST" id="formTambahDokter" class="space-y-6">
+                    <form action="{{ route('admin.dokter.store') }}" method="POST" id="formTambahDokter"
+                        class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Nama Dokter -->
                             <div class="md:col-span-2">
-                                <label for="nama_dokter" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
                                     <i class="fas fa-user text-blue-500 mr-2"></i>Nama Lengkap Dokter
                                 </label>
-                                <input type="text" id="nama_dokter" name="nama_dokter" required
+                                <input type="text" id="name" name="name" required
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400"
                                     placeholder="Dr. Nama Lengkap">
                             </div>
-    
+
                             <!-- Email -->
                             <div>
                                 <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -41,7 +43,7 @@
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400"
                                     placeholder="dokter@email.com">
                             </div>
-    
+
                             <!-- Password -->
                             <div>
                                 <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -51,12 +53,13 @@
                                     <input type="password" id="password" name="password" required
                                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400 pr-12"
                                         placeholder="Minimal 8 karakter">
-                                    <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <button type="button" onclick="togglePassword()"
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                         <i class="fas fa-eye" id="toggleIcon"></i>
                                     </button>
                                 </div>
                             </div>
-    
+
                             <!-- Alamat -->
                             <div class="md:col-span-2">
                                 <label for="alamat" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -66,7 +69,7 @@
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
                                     placeholder="Jl. Nama Jalan No. XX, Kelurahan, Kecamatan, Kota"></textarea>
                             </div>
-    
+
                             <!-- No KTP -->
                             <div>
                                 <label for="no_ktp" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -76,7 +79,7 @@
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400"
                                     placeholder="16 digit nomor KTP">
                             </div>
-    
+
                             <!-- No HP -->
                             <div>
                                 <label for="no_hp" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -86,48 +89,57 @@
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400"
                                     placeholder="08xxxxxxxxxx">
                             </div>
-    
+
                             <!-- Poli -->
                             <div class="md:col-span-2">
                                 <label for="poli" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    <i class="fas fa-stethoscope text-blue-500 mr-2"></i>Poliklinik
+                                    <i class="fas fa-stethoscope text-amber-500 mr-2"></i>Poliklinik
                                 </label>
                                 <select id="poli" name="poli" required
-                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 bg-white">
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 bg-white">
                                     <option value="">Pilih Poliklinik</option>
-                                    <option value="umum">Poli Umum</option>
-                                    <option value="anak">Poli Anak</option>
-                                    <option value="dalam">Poli Penyakit Dalam</option>
-                                    <option value="kandungan">Poli Kandungan</option>
-                                    <option value="bedah">Poli Bedah</option>
-                                    <option value="mata">Poli Mata</option>
-                                    <option value="tht">Poli THT</option>
-                                    <option value="kulit">Poli Kulit & Kelamin</option>
-                                    <option value="saraf">Poli Saraf</option>
-                                    <option value="jantung">Poli Jantung</option>
+                                    @foreach ($polis as $poli)
+                                        <option value="{{ $poli->id }}"
+                                            {{ old('poli', $dokter->poli->nama_poli ?? '') == $poli->nama_poli ? 'selected' : '' }}>
+                                            Poli {{ ucfirst($poli->nama_poli) }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-    
+
+                        @if ($errors->any())
+                            <div class="mb-4">
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                    <strong>Ups! Ada kesalahan input:</strong>
+                                    <ul class="mt-2 list-disc list-inside text-sm">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <!-- Action Buttons -->
                         <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                             <a type="button" href="{{ route('admin.dokter.index') }}"
-                            class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center">
-                            <i class="fas fa-undo mr-2"></i>Batal
-                        </a>
+                                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center">
+                                <i class="fas fa-undo mr-2"></i>Batal
+                            </a>
                             <form action="{{ route('admin.dokter.store') }}" method="POST" id="formSimpanDokter">
-                            @csrf
-                               
-                            <button type="submit"
-                                class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
-                                <i class="fas fa-save mr-2"></i>Simpan Dokter
-                            </button>
+                                @csrf
+
+                                <button type="submit"
+                                    class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fas fa-save mr-2"></i>Simpan Dokter
+                                </button>
                             </form>
                         </div>
                     </form>
                 </div>
             </div>
-    
+
             <!-- Info Card -->
             <div class="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
                 <div class="flex">
@@ -136,7 +148,8 @@
                     </div>
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
-                            <strong>Catatan:</strong> Pastikan semua data yang dimasukkan sudah benar. Dokter akan menerima email dengan informasi login setelah berhasil ditambahkan ke sistem.
+                            <strong>Catatan:</strong> Pastikan semua data yang dimasukkan sudah benar. Dokter akan
+                            menerima email dengan informasi login setelah berhasil ditambahkan ke sistem.
                         </p>
                     </div>
                 </div>
@@ -144,6 +157,5 @@
         </div>
     </div>
 
-   
+
 </x-app-layout>
- 

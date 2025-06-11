@@ -35,24 +35,25 @@ class AdminDokterController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'nama_dokter' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'alamat' => 'required|string',
             'no_ktp' => 'required|digits:16|unique:users,no_ktp',
             'no_hp' => 'required|string|max:15',
-            'poli' => 'required|exists:polis,nama',
+            'poli' => 'required|exists:polis,id',
         ]);
 
         User::create([
-            'name' => $request->nama_dokter,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->no_hp,
-            'poli' => $request->poli,
+            'id_poli' => $request->poli,
             'role' => 'dokter'
         ]);
 
