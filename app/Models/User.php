@@ -39,7 +39,7 @@ class User extends Authenticatable
     }
 
     public function poli(){
-        return $this->belongsTo(DaftarPoli::class, 'id_poli');
+        return $this->belongsTo(Poli::class, 'id_poli');
     }
 
     /**

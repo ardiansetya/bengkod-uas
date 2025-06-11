@@ -46,7 +46,7 @@
                                             {{ $dokter->no_hp ?? '-' }}
                                         </td>
                                         <td class="px-4 py-2">
-                                            {{ $dokter->id_poli->nama_poli ?? '-' }}
+                                            {{ $dokter->poli ?? '-' }}
                                         </td>
                                         <td class="px-4 py-2">
                                             {{-- <a href="{{ route('admin.dokter.edit', $periksa->id) }}"
