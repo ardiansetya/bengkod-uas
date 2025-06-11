@@ -23,6 +23,7 @@
                     <!-- Form -->
                     <form action="{{ route('admin.dokter.store') }}" method="POST" id="formTambahDokter"
                         class="space-y-6">
+                    @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Nama Dokter -->
                             <div class="md:col-span-2">
@@ -148,8 +149,7 @@
                     </div>
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
-                            <strong>Catatan:</strong> Pastikan semua data yang dimasukkan sudah benar. Dokter akan
-                            menerima email dengan informasi login setelah berhasil ditambahkan ke sistem.
+                            <strong>Catatan:</strong> Pastikan semua data yang dimasukkan sudah benar.
                         </p>
                     </div>
                 </div>

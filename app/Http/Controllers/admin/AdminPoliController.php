@@ -30,7 +30,17 @@ class AdminPoliController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_poli' => 'required|string|max:255',
+            'keterangan' => 'nullable|string|max:500',
+        ]);
+
+        Poli::create([
+            'nama_poli' => $request->nama_poli,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()->route('admin.poli.index')->with('success', 'Poli Behasil Ditambahkan.');
     }
 
     /**
@@ -46,7 +56,8 @@ class AdminPoliController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $poli = Poli::findOrFail($id);
+        return view('admin.poli.edit', compact('poli'));
     }
 
     /**
@@ -54,7 +65,18 @@ class AdminPoliController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_poli' => 'required|string|max:255',
+            'keterangan' => 'nullable|string|max:500',
+        ]);
+
+        $poli = Poli::findOrFail($id);
+        $poli->update([
+            'nama_poli' => $request->nama_poli,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()->route('admin.poli.index')->with('success', 'Poli Berhasil Diupdate.');
     }
 
     /**
