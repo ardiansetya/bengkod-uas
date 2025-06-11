@@ -27,6 +27,8 @@ class UserSeeder extends Seeder
             'name' => 'Dr. Budi',
             'email' => 'dokter@example.com',
             'password' => Hash::make('password'),
+            'alamat' => 'Jl. Melati No. 2',
+            'no_ktp' => '9876543210987654',
             'id_poli' => 1, // Pastikan poli dengan ID 1 sudah ada
             'no_hp' => '081234567890',
             'role' => 'dokter',
