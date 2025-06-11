@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Poli;
 use Illuminate\Http\Request;
 
 class AdminPoliController extends Controller
@@ -12,7 +13,8 @@ class AdminPoliController extends Controller
      */
     public function index()
     {
-        return view('admin.poli.index');
+        $polis = Poli::all();
+        return view('admin.poli.index', compact('polis'));
     }
 
     /**

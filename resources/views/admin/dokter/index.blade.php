@@ -58,21 +58,27 @@
                                         <td class="px-4 py-2">
                                             {{ $dokter->poli->nama_poli ?? '-' }}
                                         </td>
-                                        <td class="px-4 py-2">
+                                        <td class="px-4 py-2 flex space-x-2">
                                             <a href="{{ route('admin.dokter.edit', $dokter->id) }}"
                                                 class="inline-block px-3 py-1 text-sm text-white bg-amber-600 rounded hover:bg-amber-700">
                                                 Edit
                                             </a>
-                                            <a href="{{ route('admin.dokter.destroy', $dokter->id) }}"
-                                                class="inline-block px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700">
-                                                Delete
-                                            </a>
+                                            <form action="{{ route('admin.dokter.destroy', $dokter->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" href="{{ route('admin.dokter.destroy', $dokter->id) }}"
+                                                    class="inline-block px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                           
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Tidak ada pasien
-                                            yang diperiksa.</td>
+                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Data Dokter Tidak Tersedia\]
+                                            
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
