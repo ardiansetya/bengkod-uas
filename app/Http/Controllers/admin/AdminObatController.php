@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 
 class AdminObatController extends Controller
@@ -12,7 +13,8 @@ class AdminObatController extends Controller
      */
     public function index()
     {
-        return view('admin.obat.index');
+        $obats = Obat::all(); 
+        return view('admin.obat.index', compact('obats'));
     }
 
     /**
@@ -20,7 +22,8 @@ class AdminObatController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.obat.create');
     }
 
     /**
@@ -28,7 +31,19 @@ class AdminObatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_obat' => 'required|string|max:255',
+            'kemasan' => 'required|string|max:255',
+            'harga' => 'required|numeric|min:0',
+        ]);
+
+        Obat::create([
+            'nama_obat' => $request->nama_obat,
+            'kemasan' => $request->kemasan,
+            'harga' => $request->harga,
+        ]);
+
+        return redirect()->route('admin.obat.index')->with('success', 'Obat Behasil Ditambahkan.');
     }
 
     /**
@@ -44,7 +59,8 @@ class AdminObatController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $obat = Obat::findOrFail($id);
+        return view('admin.obat.edit', compact('obat'));
     }
 
     /**
@@ -52,7 +68,20 @@ class AdminObatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_obat' => 'required|string|max:255',
+            'kemasan' => 'required|string|max:255',
+            'harga' => 'required|numeric|min:0',
+        ]);
+
+        $obat = Obat::findOrFail($id);
+        $obat->update([
+            'nama_obat' => $request->nama_obat,
+            'kemasan' => $request->kemasan,
+            'harga' => $request->harga,
+        ]);
+
+        return redirect()->route('admin.obat.index')->with('success', 'Obat Behasil Diperbarui.');
     }
 
     /**
@@ -60,6 +89,9 @@ class AdminObatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $obat = Obat::findOrFail($id);
+        $obat->delete();
+
+        return redirect()->route('admin.obat.index')->with('success', 'Obat Berhasil Dihapus.');
     }
 }
