@@ -22,7 +22,7 @@ class AdminPoliController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.poli.create');
     }
 
     /**
@@ -62,6 +62,9 @@ class AdminPoliController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $poli = Poli::findOrFail($id);
+        $poli->delete();
+
+        return redirect()->route('admin.poli.index')->with('success', 'Poli deleted successfully.');
     }
 }
