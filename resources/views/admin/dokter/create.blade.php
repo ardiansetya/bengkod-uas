@@ -18,6 +18,19 @@
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Tambah Dokter Baru</h3>
                         <p class="text-gray-600">Lengkapi informasi dokter untuk menambahkan ke sistem</p>
+
+                        @if ($errors->any())
+                        <div class="mb-4">
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                <strong>Ups! Ada kesalahan input:</strong>
+                                <ul class="mt-2 list-disc list-inside text-sm">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     </div>
 
                     <!-- Form -->
@@ -54,7 +67,7 @@
                                     <input type="password" id="password" name="password" required
                                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400 pr-12"
                                         placeholder="Minimal 8 karakter">
-                                    <button type="button" onclick="togglePassword()"
+                                    <button type="button" 
                                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                         <i class="fas fa-eye" id="toggleIcon"></i>
                                     </button>
@@ -109,18 +122,7 @@
                             </div>
                         </div>
 
-                        @if ($errors->any())
-                            <div class="mb-4">
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                                    <strong>Ups! Ada kesalahan input:</strong>
-                                    <ul class="mt-2 list-disc list-inside text-sm">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
+                    
 
                         <!-- Action Buttons -->
                         <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">

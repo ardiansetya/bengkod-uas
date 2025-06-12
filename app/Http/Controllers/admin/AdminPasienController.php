@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 
 
@@ -87,7 +88,9 @@ class AdminPasienController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.pasien.edit', [
+            'pasien' => User::findOrFail($id)
+        ]);
     }
 
     /**
@@ -95,7 +98,46 @@ class AdminPasienController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $pasien = User::findOrFail($id);
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($pasien->id)
+            ],
+            'password' => 'nullable|string|min:8',
+            'alamat' => 'required|string',
+            'no_ktp' => [
+                'required',
+                'digits:16',
+                Rule::unique('users', 'no_ktp')->ignore($pasien->id)
+            ],
+            'no_hp' => 'required|string|max:15',
+        ]);
+
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'no_ktp' => $request->no_ktp,
+            'no_hp' => $request->no_hp,
+        ];
+
+        // Hanya update password jika field-nya diisi
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $pasien->update($data);
+
+        return redirect()->route('admin.pasien.index')->with('success', 'Data pasien berhasil diperbarui.');
+
+
     }
 
     /**
@@ -103,6 +145,8 @@ class AdminPasienController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pasien = User::findOrFail($id);
+        $pasien->delete();
+        return redirect()->route('admin.pasien.index')->with('success', 'Pasien Berhasil Dihapus.');
     }
 }

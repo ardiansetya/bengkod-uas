@@ -14,12 +14,12 @@
                         <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                             <i class="fas fa-user-edit text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Edit Data Dokter</h3>
-                        <p class="text-gray-600">Perbarui informasi dokter sesuai kebutuhan</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Edit Data Pasien</h3>
+                        <p class="text-gray-600">Perbarui informasi pasien sesuai kebutuhan</p>
                         <div class="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
                             <p class="text-amber-800 text-sm">
                                 <i class="fas fa-info-circle mr-1"></i>
-                                Mengedit: <strong id="currentDoctorName">{{ $dokter->name }}</strong>
+                                Mengedit: <strong id="currentDoctorName">{{ $pasien->name }}</strong>
                             </p>
                         </div>
 
@@ -38,19 +38,19 @@
                     </div>
 
                     <!-- Form -->
-                    <form id="formEditDokter" method="POST" action="{{ route('admin.dokter.update', $dokter->id) }}" class="space-y-6">
+                    <form id="formEditPasien" method="POST" action="{{ route('admin.pasien.update', $pasien->id) }}" class="space-y-6">
                         @csrf
-                        @method('patch')
+                        @method('PATCH')
 
-                        <!-- Nama Dokter -->
+                        <!-- Nama pasien -->
                         <div class="md:col-span-2">
                             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-user text-amber-500 mr-2"></i>Nama Lengkap Dokter
+                                <i class="fas fa-user text-amber-500 mr-2"></i>Nama Lengkap pasien
                             </label>
                             <input type="text" id="name" name="name" required
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
                                 placeholder="Dr. Nama Lengkap"
-                                value="{{ old('name', $dokter->name) }}">
+                                value="{{ old('name', $pasien->name) }}">
                         </div>
 
                         <!-- Email -->
@@ -60,8 +60,8 @@
                             </label>
                             <input type="email" id="email" name="email" required
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
-                                placeholder="dokter@email.com"
-                                value="{{ old('email', $dokter->email) }}">
+                                placeholder="pasien@email.com"
+                                value="{{ old('email', $pasien->email) }}">
                         </div>
 
                         <!-- Password -->
@@ -73,7 +73,7 @@
                                 <input type="password" id="password" name="password"
                                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300 pr-12"
                                     placeholder="Kosongkan jika tidak ingin mengubah">
-                                <button type="button"  class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                     <i class="fas fa-eye" id="toggleIcon"></i>
                                 </button>
                             </div>
@@ -90,7 +90,7 @@
                             </label>
                             <textarea id="alamat" name="alamat" rows="3" required
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300 resize-none"
-                                placeholder="Jl. Nama Jalan No. XX">{{ old('alamat', $dokter->alamat) }}</textarea>
+                                placeholder="Jl. Nama Jalan No. XX">{{ old('alamat', $pasien->alamat) }}</textarea>
                         </div>
 
                         <!-- No KTP -->
@@ -100,7 +100,7 @@
                             </label>
                             <input type="text" id="no_ktp" name="no_ktp" required maxlength="16"
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
-                                value="{{ old('no_ktp', $dokter->no_ktp) }}">
+                                value="{{ old('no_ktp', $pasien->no_ktp) }}">
                         </div>
 
                         <!-- No HP -->
@@ -110,28 +110,13 @@
                             </label>
                             <input type="tel" id="no_hp" name="no_hp" required
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
-                                value="{{ old('no_hp', $dokter->no_hp) }}">
+                                value="{{ old('no_hp', $pasien->no_hp) }}">
                         </div>
 
-                        <!-- Poli -->
-                        <div class="md:col-span-2">
-                            <label for="poli" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-stethoscope text-amber-500 mr-2"></i>Poliklinik
-                            </label>
-                            <select id="poli" name="poli" required
-                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 bg-white">
-                                <option value="">Pilih Poliklinik</option>
-                                @foreach ($polis as $poli)
-                                    <option value="{{ $poli->id }}" {{ old('poli', $dokter->poli->nama_poli ?? '') == $poli->nama_poli ? 'selected' : '' }}>
-                                        Poli {{ ucfirst($poli->nama_poli) }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
+                      
 
                         <!-- Action Buttons -->
-                        <form action="{{ route('admin.dokter.update', $dokter->id) }}" method="POST" class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                        <form action="{{ route('admin.pasien.update', $pasien->id) }}" method="POST" class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                         @csrf
                         @method('PATCH')
                             <button type="submit"
