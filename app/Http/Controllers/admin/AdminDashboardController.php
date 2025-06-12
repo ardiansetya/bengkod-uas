@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Obat;
 use App\Models\Poli;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,8 +18,9 @@ class AdminDashboardController extends Controller
         $jumlahDokter = User::where('role', 'dokter')->count();
         $jumlahPasien = User::where('role', 'pasien')->count();
         $jumlahPoli = Poli::count();
+        $jumlahObat = Obat::count();
 
-        return view('admin.dashboard', compact('jumlahDokter', 'jumlahPasien', 'jumlahPoli'));
+        return view('admin.dashboard', compact('jumlahDokter', 'jumlahPasien', 'jumlahPoli', 'jumlahObat'));
     }
 
     /**

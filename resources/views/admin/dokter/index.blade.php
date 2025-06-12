@@ -76,7 +76,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Data Dokter Tidak Tersedia\]
+                                        <td colspan="7" class="text-center px-4 py-3 text-gray-500">Data Dokter Tidak Tersedia
                                             
                                         </td>
                                     </tr>

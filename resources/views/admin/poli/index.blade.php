@@ -14,7 +14,6 @@
                         <h2 class="text-lg font-medium text-gray-900">
                             Admin Poli
                         </h2>
-
                         <div>
                             <a href="{{ route('admin.poli.create') }}"
                                 class="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -22,8 +21,6 @@
                             </a>
                         </div>
                     </header>
-
-                   
 
                     <div class="overflow-x-auto mt-6">
                         <table class="min-w-full divide-y divide-gray-200 border rounded-lg">

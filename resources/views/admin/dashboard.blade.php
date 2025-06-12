@@ -34,6 +34,11 @@
                             <h3 class="text-sm text-amber-700 font-semibold">Jumlah Pasien</h3>
                             <p class="text-3xl font-bold text-amber-900 mt-2">{{ $jumlahPasien }}</p>
                         </a>
+                        <!-- Kartu Jumlah Obat -->
+                        <a href="{{ route('admin.obat.index') }}" class="bg-red-100 p-4 rounded-lg shadow">
+                            <h3 class="text-sm text-red-700 font-semibold">Jumlah Obat</h3>
+                            <p class="text-3xl font-bold text-red-900 mt-2">{{ $jumlahObat }}</p>
+                        </a>
                     </div>
                 </section>
             </div>

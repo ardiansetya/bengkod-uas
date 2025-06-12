@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminPasienController extends Controller
@@ -12,7 +13,8 @@ class AdminPasienController extends Controller
      */
     public function index()
     {
-        return view('admin.pasien.index');
+        $pasiens = User::where('role', 'pasien')->get();
+        return view('admin.pasien.index', compact('pasiens'));
     }
 
     /**
