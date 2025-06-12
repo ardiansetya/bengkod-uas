@@ -10,10 +10,17 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
             <div class="bg-white p-6 shadow sm:rounded-lg">
                 <section>
-                    <header class="mb-6">
+                    <header class="mb-6 flex items-center justify-between">
                         <h2 class="text-lg font-medium text-gray-900">
                             Admin Pasien
                         </h2>
+
+                        <div>
+                            <a href="{{ route('admin.pasien.create') }}"
+                                class="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Tambah Pasien
+                            </a>
+                        </div>
                     </header>
 
                     <div class="overflow-x-auto mt-6">

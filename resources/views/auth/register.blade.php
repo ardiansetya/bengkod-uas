@@ -2,11 +2,24 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        @if ($errors->any())
+        <div class="mt-4">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                <strong>Ups! Ada kesalahan input:</strong>
+                <ul class="mt-2 list-disc list-inside text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
         <!-- nama -->
         <div>
-            <x-input-label for="nama" :value="__('nama')" />
-            <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama')" required autofocus autocomplete="nama" />
-            <x-input-error :messages="$errors->get('nama')" class="mt-2" />
+            <x-input-label for="name" :value="__('name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->

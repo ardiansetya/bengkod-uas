@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nama' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
 
         $now = Carbon::now();
         $bulanIni = $now->format('Ym'); // 202506
-        $jumlahPasienBulanIni = User::where('created_at', 'like', $now->format('Y-m') . '%')
+        $jumlahPasienBulanIni = User::where('role', 'pasien')->where('created_at', 'like', $now->format('Y-m') . '%')
             ->where('role', 'pasien')
             ->count();
 
@@ -54,7 +54,7 @@ class RegisteredUserController extends Controller
 
 
         $user = User::create([
-            'nama' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
