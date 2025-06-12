@@ -50,6 +50,12 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('pasien.daftar-poli.index')" :active="request()->routeIs('pasien.daftar-poli.index')">
+                            {{ __('Daftar Poli') }}
+                        </x-nav-link>
+                        {{-- <x-nav-link :href="route('pasien.riwayat.index')" :active="request()->routeIs('pasien.riwayat.index')">
+                            {{ __('Riwayat Periksa') }}
+                        </x-nav-link> --}}
                         @endif
                     @endauth
                 </div>

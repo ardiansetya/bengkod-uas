@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\AdminPoliController;
 use App\Http\Controllers\dokter\JadwalPeriksaController;
 use App\Http\Controllers\dokter\PeriksaController;
 use App\Http\Controllers\dokter\RiwayatPeriksaController;
+use App\Http\Controllers\pasien\DaftarPoliController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('pasien.dashboard');
         })->name('pasien.dashboard');
+        Route::resource('/daftar-poli', DaftarPoliController::class)->names('pasien.daftar-poli');
     });
 });
 
