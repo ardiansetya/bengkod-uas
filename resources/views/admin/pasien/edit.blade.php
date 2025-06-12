@@ -112,6 +112,15 @@
                                 class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
                                 value="{{ old('no_hp', $pasien->no_hp) }}">
                         </div>
+                        <!-- No RM -->
+                        <div>
+                            <label for="no_rm" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-phone text-amber-500 mr-2"></i>Nomor RM
+                            </label>
+                            <input type="tel" id="no_rm" name="no_rm" required
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-amber-100 focus:border-amber-500 transition-all duration-300"
+                                value="{{ old('no_rm', $pasien->no_rm) }}" readonly>
+                        </div>
 
                       
 
