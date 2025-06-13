@@ -24,9 +24,11 @@ class DaftarPoliController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $id)
     {
-        //
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        return view('pasien.daftar-poli.create', compact('jadwalPeriksa'));
+     
     }
 
     /**
@@ -34,7 +36,7 @@ class DaftarPoliController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -50,7 +52,7 @@ class DaftarPoliController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       
     }
 
     /**

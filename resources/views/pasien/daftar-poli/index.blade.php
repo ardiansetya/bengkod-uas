@@ -22,7 +22,7 @@
                             <table class="min-w-full divide-y divide-gray-200 border rounded-lg">
                                 <thead class="bg-gray-100 text-left text-sm font-medium text-gray-700">
                                     <tr>
-                                        <th class="px-4 py-2">ID</th>
+                                        <th class="px-4 py-2">ID Jadwal</th>
                                         <th class="px-4 py-2">Dokter</th>
                                         <th class="px-4 py-2">Hari</th>
                                         <th class="px-4 py-2">Mulai</th>
@@ -45,7 +45,7 @@
                                                 {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
                                             </td>
                                             <td class="px-4 py-2 flex gap-5">
-                                                <form action="{{ route('pasien.daftar-poli.create', $poli) }}"
+                                                <form action="{{ route('pasien.daftar-poli.create', $jadwal->id) }}"
                                                     method="GET">
                                                     <button type="submit"
                                                         class="px-3 py-1 text-sm text-white bg-amber-500 rounded hover:bg-amber-700">
