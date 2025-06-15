@@ -8,6 +8,7 @@ use App\Models\DetailPeriksa;
 use App\Models\Obat;
 use App\Models\Periksa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeriksaController extends Controller
 {
@@ -22,7 +23,10 @@ class PeriksaController extends Controller
         //     ->orderBy('daftar_polis.no_antrian', 'asc')
         //     ->get();
 
-        $daftarPolis = DaftarPoli::all();
+        $daftarPolis = DaftarPoli::whereHas('jadwalPeriksa', function ($query) {
+            $query->where('id_dokter', Auth::user()->id);
+        })->with(['periksa', 'pasien']) // relasi yang akan kamu akses di view
+            ->get();
         return view('dokter.periksa.index', compact('daftarPolis'));
     }
 
