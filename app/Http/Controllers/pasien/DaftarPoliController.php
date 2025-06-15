@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\pasien;
 
 use App\Http\Controllers\Controller;
+use App\Models\DaftarPoli;
 use App\Models\JadwalPeriksa;
 use App\Models\Poli;
 use Illuminate\Http\Request;
@@ -34,10 +35,34 @@ class DaftarPoliController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        
+        $request->validate([
+            'keluhan' => 'required|string|max:255',
+            'no_antrian' => 'required|integer|min:1',
+        ]);
+
+        // Cek apakah sudah pernah daftar ke jadwal ini
+        $cekDaftar = DaftarPoli::where('id_pasien', auth()->user()->id)
+            ->where('id_jadwal', $id)
+            ->exists();
+
+        if ($cekDaftar) {
+            return redirect()->route('pasien.daftar-poli.create', $id)
+                ->withErrors(['error' => 'Anda sudah terdaftar untuk jadwal ini!']);
+        }
+
+        // Simpan data
+        DaftarPoli::create([
+            'id_pasien' => auth()->user()->id,
+            'id_jadwal' => $id,
+            'keluhan' => $request->keluhan,
+            'no_antrian' => $request->no_antrian,
+        ]);
+
+        return redirect()->route('pasien.daftar-poli.index')->with('success', 'Pendaftaran berhasil!');
     }
+
 
     /**
      * Display the specified resource.

@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         })->name('pasien.dashboard');
         Route::get('/daftar-poli', [DaftarPoliController::class, 'index'])->name('pasien.daftar-poli.index');
         Route::get('/daftar-poli/create/{id}', [DaftarPoliController::class, 'create'])->name('pasien.daftar-poli.create');
+        Route::post('/daftar-poli/store/{id}', [DaftarPoliController::class, 'store'])->name('pasien.daftar-poli.store');
     });
 });
 
