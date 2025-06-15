@@ -13,7 +13,7 @@ class RiwayatPeriksaController extends Controller
      */
     public function index()
     {
-        $periksas = Periksa::all();
+        $periksas = Periksa::all()->where('status', true);
         return view('dokter.riwayat.index', compact('periksas'));
     }
 

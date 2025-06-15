@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_daftar_poli')->constrained('daftar_polis')->onDelete('cascade');
             $table->dateTime('tanggal_periksa');
-            $table->text('catatan');
-            $table->integer('biaya_periksa');
+            $table->text('catatan')->nullable();
+            $table->integer('biaya_periksa')->default(0);
             $table->boolean('status')->default(false); 
             $table->timestamps();
         });

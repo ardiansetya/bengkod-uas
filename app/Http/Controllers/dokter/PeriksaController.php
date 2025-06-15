@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dokter;
 
 use App\Http\Controllers\Controller;
+use App\Models\DaftarPoli;
 use App\Models\DetailPeriksa;
 use App\Models\Obat;
 use App\Models\Periksa;
@@ -15,12 +16,14 @@ class PeriksaController extends Controller
      */
     public function index()
     {
-        $periksas = Periksa::select('periksas.*')
-            ->join('daftar_polis', 'periksas.id_daftar_poli', '=', 'daftar_polis.id')
-            ->with(['daftarPoli.pasien'])
-            ->orderBy('daftar_polis.no_antrian', 'asc')
-            ->get();
-        return view('dokter.periksa.index', compact('periksas'));
+        // $periksas = Periksa::select('periksas.*')
+        //     ->join('daftar_polis', 'periksas.id_daftar_poli', '=', 'daftar_polis.id')
+        //     ->with(['daftarPoli.pasien'])
+        //     ->orderBy('daftar_polis.no_antrian', 'asc')
+        //     ->get();
+
+        $daftarPolis = DaftarPoli::all();
+        return view('dokter.periksa.index', compact('daftarPolis'));
     }
 
     /**

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\pasien;
 use App\Http\Controllers\Controller;
 use App\Models\DaftarPoli;
 use App\Models\JadwalPeriksa;
+use App\Models\Periksa;
 use App\Models\Poli;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DaftarPoliController extends Controller
@@ -58,6 +60,12 @@ class DaftarPoliController extends Controller
             'id_jadwal' => $id,
             'keluhan' => $request->keluhan,
             'no_antrian' => $request->no_antrian,
+        ]);
+
+        Periksa::create([
+            'id_daftar_poli' => DaftarPoli::latest()->first()->id,
+            'tanggal_periksa' => Carbon::now()->format('Y-m-d'),
+
         ]);
 
         return redirect()->route('pasien.daftar-poli.index')->with('success', 'Pendaftaran berhasil!');
