@@ -22,7 +22,8 @@
                     </div>
 
                     <!-- Form -->
-                    <form action="{{ route('pasien.daftar-poli.store', $jadwalPeriksa->id) }}" method="POST" id="formTambahDaftarPoli" class="space-y-6">
+                    <form action="{{ route('pasien.daftar-poli.store', $jadwalPeriksa->id) }}" method="POST"
+                        id="formTambahDaftarPoli" class="space-y-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -56,12 +57,17 @@
                             <label for="no_antrian" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fas fa-lock text-blue-500 mr-2"></i>No Antrean
                             </label>
+
                             <div class="relative">
-                                <input type="text" id="no_antrian" name="no_antrian" required
-                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400 pr-12"
-                                     value="{{ old('no_antrian', $jadwalPeriksa->where('id_dokter', $jadwalPeriksa->dokter->id)->count() + 1) }}"
-                                    readonly>
+                        
+                                        <input type="text" id="no_antrian" name="no_antrian" required
+                                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-gray-900 placeholder-gray-400 pr-12"
+                                            value="{{ old('no_antrian', $jumlahAntrian +1) }}"
+                                            readonly>
+                           
                             </div>
+
+
                         </div>
 
                         @if ($errors->any())
@@ -84,12 +90,12 @@
                                 <i class="fas fa-undo mr-2"></i>Batal
                             </a>
 
-                    @csrf
-                    <button type="submit"
-                    class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
-                    <i class="fas fa-save mr-2"></i>Daftar Poli
-                </button>
-                       
+                            @csrf
+                            <button type="submit"
+                                class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
+                                <i class="fas fa-save mr-2"></i>Daftar Poli
+                            </button>
+
                         </div>
                     </form>
                 </div>

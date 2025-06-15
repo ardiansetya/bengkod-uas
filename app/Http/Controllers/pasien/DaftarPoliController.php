@@ -9,6 +9,7 @@ use App\Models\Periksa;
 use App\Models\Poli;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DaftarPoliController extends Controller
 {
@@ -30,7 +31,20 @@ class DaftarPoliController extends Controller
     public function create(string $id)
     {
         $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
-        return view('pasien.daftar-poli.create', compact('jadwalPeriksa'));
+        // Ambil semua daftar_poli terkait jadwal ini, beserta relasi ke periksa
+        $daftarPoliList = DaftarPoli::where('id_jadwal', $id)->with('periksa')->get();
+
+        // Hitung jumlah periksa yang status = 0
+        $jumlahAntrian = 0;
+        foreach ($daftarPoliList as $daftarPoli) {
+            foreach ($daftarPoli->periksa as $periksa) {
+                if ($periksa->status == 0) {
+                    $jumlahAntrian++;
+                }
+            }
+        }
+
+        return view('pasien.daftar-poli.create', compact('jadwalPeriksa', 'jumlahAntrian'));
      
     }
 
@@ -47,7 +61,11 @@ class DaftarPoliController extends Controller
         // Cek apakah sudah pernah daftar ke jadwal ini
         $cekDaftar = DaftarPoli::where('id_pasien', auth()->user()->id)
             ->where('id_jadwal', $id)
-            ->exists();
+            ->whereHas('periksa', function ($query) {
+                $query->where('status', false);
+            })
+            ->exists();  
+        
 
         if ($cekDaftar) {
             return redirect()->route('pasien.daftar-poli.create', $id)
@@ -56,7 +74,7 @@ class DaftarPoliController extends Controller
 
         // Simpan data
         DaftarPoli::create([
-            'id_pasien' => auth()->user()->id,
+            'id_pasien' => Auth::user()->id,
             'id_jadwal' => $id,
             'keluhan' => $request->keluhan,
             'no_antrian' => $request->no_antrian,
